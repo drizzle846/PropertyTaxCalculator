@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+  <title>Property Tax Calculator</title>
+  <style>
+	  @charset "UTF-8";
+/* .container {
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+label, input, button {
+  display: block;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#result {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+ }*/
+ body {
+      font-family: 'Times New Roman', Times, serif;
+      background-color: rgb(203, 194, 245);
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 3px solid rgb(206, 216, 222);
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgb(84, 81, 121);
+    }
+.button-container {
+  display: flex;
+  flex-direction: column; /* Align children vertically */
+      align-items: center;}
+
+button {
+  max-width: 200px;
+  background-color: rgb(139, 84, 246);
+  align-self: center;
+  cursor: pointer;
+}
+
+    h1 {
+      color: rgb(77, 68, 233);
+      text-align: center;
+    }
+
+    label {
+      font-weight: bold;
+      color: rgb(10, 12, 14);
+            margin-bottom: 10px;
+
+      margin-right: 10px;
+            margin-left: 10px;
+
+    }
+input[type="radio"] {
+      margin-right: 5px; /* Adjust spacing between radio buttons and labels */
+      vertical-align: middle; /* Align radio buttons vertically with labels */
+    }
+    select,
+    input[type="number"],
+    button {display: block;
+      width: 80%;
+      padding: 5px;
+      margin-bottom: 10px;
+            margin-left: 15px;
+
+      border: 1px solid rgb(155, 162, 204);
+      border-radius: 2px;
+      font-family: 'Times New Roman', Times, serif; /* Apply Times New Roman font to inputs and select */
+
+    }
+
+    .form-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* Align items on the same row with space between */
+      margin-bottom: 5px;
+    }
+    .form-row label{
+		flex-basis: 20%;
+	}
+	.form-row input[type="number"],
+    
+    .form-row select {
+      flex: 1;
+    }
+
+    .form-row button {
+      background-color: rgb(189, 162, 246);
+      color: rgb(210, 198, 227);
+      font-weight: bold;
+      cursor: pointer;
+      margin-left: auto; /* Shift the button to the right */
+
+    }
+
+    .result { font-weight: bold;
+      text-align: center;
+      margin-top: 20px;
+    }
+ .radio-options {
+      margin-left: 180px;
+            
+    }
+    .radio-options label {
+      font-weight: normal;
+    }
+
+  </style>
+<!--  <link rel="stylesheet" type="text/css" href="style.css">-->
+</head>
+<body>
+  <div class="container">
+    <h1>Property Tax Calculator</h1>
+    <div class="form-row">
+    <label for="landType">Land Type:</label>
+    <select id="landType" name="landType" onchange="updateOptions()">
+  <option value="openLand">Open Land</option>
+  <option value="Building">Building</option>
+  </select>
+  <label for="userCategory">User Category:</label>
+  <select id="userCategory" name="User Category" >
+<!--  <option value="Commercial">Commercial</option>-->
+<!--  <option value="Institutional">Institutional</option>-->
+<!--  <option value="Residential">Residential</option> -->
+  </select>
+      </div>
+    <div class="form-row">
+
+   <label for="plotSize">Plot Area:</label>
+    <input type="number" id="plotSize" step="any" required><br>
+    <label for="structureSize">Total Floor Area of all Floors:</label>
+    <input type="number" id="structureSize" step="any" required><br>
+    </div>
+<!--            <label for="residential">Purpose of the Building:</label>-->
+        <label>Purpose of the Building:</label>
+
+        <div class="form-row">
+    <div class="radio-options">
+        <input type="radio" id="residential" name="residential" value="residential">
+        <label for="residential">Residential</label>
+      
+        <input type="radio" id="non-residential" name="residential" value="non-residential">
+        <label for="non-residential">Non-Residential</label>
+      </div>
+    </div>
+      <div class="form-row">
+
+     <label for="typeofBuilding">Nature and type of Building:</label>
+      <select id="typeofBuilding" name="Nature and type of Building" >
+  <option value=".5">Semi-permanent / Kachha building including chawl</option>
+  <option value=".7">Pucca building excluding chawl</option>
+  <option value="1">RCC Building</option>
+  </select>
+      </div>
+      <div class="form-row">
+
+  <label for="ageofBuilding">Age of Building:</label>
+      <select id="ageofBuilding" name="Age of Building" >
+  <option value="1">0 to 5 Years</option>
+  <option value=".95">5 to 10 Years</option>
+  <option value=".90">10 to 15 Years</option>
+    <option value=".85">15 to 20 Years</option>
+  <option value=".80">20 to 25 Years</option>
+  <option value=".75">25 to 30 Years</option>
+  <option value=".70">30 to 35 Years</option>
+  <option value=".65">35 to 40 Years</option>
+  <option value=".60">40 to 45 Years</option>
+  <option value=".55">45 to 49 Years</option>
+  <option value=".50">More than 49 years</option>
+
+
+  </select> 
+  <label for="floor">Building Floor:</label>
+      <select id="floor" name="Building Floor" >
+  <option value=".70">Basement</option>
+  <option value="1.00">Lower ground floor</option>
+
+  <option value="1.00">Upper ground floor</option>
+  <option value="1.00">Ground floors</option>
+    <option value="1.00">From 1st to 4th floor</option>
+  <option value="1.05">From 5th to 10th floor</option>
+  <option value="1.10">From 11th to 20th floor</option>
+  <option value="1.15">From 21st to 30th floor</option>
+  <option value="1.20">From 31st to 50th floor</option>
+  <option value="1.25">From 51st to 75th floor</option>
+  <option value="1.30">From 76th to 100th floor</option>
+  <option value="1.35">Above 100th floor</option>
+
+
+  </select>     
+      </div>
+            <div class="form-row">
+
+  <label for="carpetedArea">Carpeted Area:</label>
+    <input type="number" id="carpetedArea" step="any" required><br>
+    <label for="proportionateCommonArea">Proportionate Common Area:</label>
+    <input type="number" id="proportionateCommonArea" step="any" required><br>
+            </div>
+                  <div class="form-row">
+
+    <label for="taxRate">Tax Rate (as a decimal):</label>
+    <input type="number" id="taxRate" step="any" required><br>
+                  </div>
+<div class="button-container">
+  <button onclick="calculatePropertyTax()">Calculate Property Tax</button>
+</div>
+    <p id="result"></p>
+  </div>
+  <script>
+function calculatePropertyTax() {
+  const landType = document.getElementById('landType').value;
+  const taxRate = parseFloat(document.getElementById('taxRate').value);
+  const UC = parseFloat(document.getElementById('userCategory').value);
+  const PlotSize = parseFloat(document.getElementById('plotSize').value);
+  const StructureSize = parseFloat(document.getElementById('structureSize').value);
+  const NTB = parseFloat(document.getElementById('typeofBuilding').value);
+  const AF = parseFloat(document.getElementById('ageofBuilding').value);
+  const FF = parseFloat(document.getElementById('floor').value);
+  const CA = parseFloat(document.getElementById('carpetedArea').value);
+  const proportionateCommonArea = parseFloat(document.getElementById('proportionateCommonArea').value);
+  const Res = document.querySelector('input[name="residential"]:checked').value; // Get the selected radio button value
+
+  const BVr = 2200;
+  const BVnr = 3500;
+
+  if (landType === "openLand") {
+    if (isNaN(UC) || isNaN(PlotSize) || isNaN(StructureSize) || isNaN(proportionateCommonArea) || isNaN(taxRate)) {
+      alert('Please enter valid values.');
+      return;
+    }
+    const FSI = (StructureSize / PlotSize) * 100;
+    const propertyTax = Res === "residential" ? ((BVr * UC * FSI * PlotSize) * taxRate) + proportionateCommonArea : ((BVnr * UC * FSI * PlotSize) * taxRate) + proportionateCommonArea;
+    document.getElementById('result').textContent = `Property Tax: Rs ${propertyTax.toFixed(2)}`;
+  } else {
+    if (isNaN(UC) || isNaN(NTB) || isNaN(AF) || isNaN(FF) || isNaN(CA) || isNaN(proportionateCommonArea) || isNaN(taxRate)) {
+      alert('Please enter valid values.');
+      return;
+    }
+    const propertyTax = Res === "residential" ? ((BVr * UC * NTB * AF * FF * CA) * taxRate) + proportionateCommonArea : ((BVnr * UC * NTB * AF * FF * CA) * taxRate) + proportionateCommonArea;
+    document.getElementById('result').textContent = `Property Tax: Rs ${propertyTax.toFixed(2)}`;
+  }
+}
+
+
+function updateOptions() {
+      const landTypeSelect = document.getElementById('landType');
+      const userCategorySelect = document.getElementById('userCategory');
+
+      // Clear the existing options
+      userCategorySelect.innerHTML = '';
+      
+      // Get the selected category
+      const selectedlandType= landTypeSelect.value;
+
+      // Add options based on the selected category
+      switch (selectedlandType){
+		  case 'openLand':
+			  userCategorySelect.add(new Option('Airport runway & taxing bay, Stadium, Open air Theatre, Petrol Pump', '1.25'));
+			  userCategorySelect.add(new Option('Service Station, LPG, CNG Station, Kerosene Station, Golf Course, Amusement Park', '1.25'));
+			  userCategorySelect.add(new Option('Open air electric substation, Non-residential commercial land, Quarry, Racing track', '1.25'));
+			  
+			  userCategorySelect.add(new Option('Airport land other than land covered by entry, Land around weighbridge,Residential','1'));
+      	     // userCategorySelect.add(new Option('Residential', 'Residential'));
+      break;
+		  case 'Building':
+			  userCategorySelect.add(new Option('Self-occupied Residential', '1'));
+			  userCategorySelect.add(new Option('Rented Residential', '.85'));
+			  userCategorySelect.add(new Option('Residential buildings for Commercial purpose', '.75'));
+
+			  userCategorySelect.add(new Option('Commercial Offices', '1'));
+			  userCategorySelect.add(new Option('Commercial Shops', '.85'));
+			  userCategorySelect.add(new Option('Commercial Hotels', '.75'));
+			  userCategorySelect.add(new Option('Commercial Hospitals', '.65'));
+			  userCategorySelect.add(new Option('Commercial Educational Institutions', '.55'));
+			  userCategorySelect.add(new Option('Commercial Cinema Halls', '.45'));
+			  userCategorySelect.add(new Option('Commercial Restraunts', '.35'));
+			  userCategorySelect.add(new Option('Other Commercial Buildings', '.25'));
+			  
+			  
+
+			  userCategorySelect.add(new Option('Industrial', '.65'));	
+			  break;
+			  default:
+				  break;  
+	  }
+
+}
+
+  </script>
+</body>
+</html>
